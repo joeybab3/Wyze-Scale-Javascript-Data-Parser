@@ -16,15 +16,11 @@ document.getElementById('input').addEventListener("change", (event) => {
 	document.getElementById('button').click();
 })
 
-let data=[{
-    "name":"jayanth",
-    "data":"scd",
-    "abc":"sdef"
-}]
+let data=[{}];
 
 
-document.getElementById('button').addEventListener("click", () => {
-	
+document.getElementById('button').addEventListener("click", () => 
+{
     XLSX.utils.json_to_sheet(data, 'out.xlsx');
     if(selectedFile){
         let fileReader = new FileReader();
@@ -83,6 +79,7 @@ function parseArray(info)
 	
 	var bodyctx = document.getElementById('body').getContext('2d');
 	var heartctx = document.getElementById('heart').getContext('2d');
+	
 	var bodychart = new Chart(bodyctx, {
 		type: 'line',
 		data: {
@@ -104,6 +101,7 @@ function parseArray(info)
 			}
 		}
 	});
+	
 	var heartchart = new Chart(heartctx, {
 		type: 'line',
 		data: {
