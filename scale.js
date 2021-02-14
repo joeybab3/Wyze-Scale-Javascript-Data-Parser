@@ -52,14 +52,17 @@ function parseArray(info)
 			{
 				if(dataType == 0)
 				{
-					bodylabels.push(value[1]);
-					bodyComposition.push(value[1]);
-					bodyComposition.push(value);
+					var pointtime = new Date(value[1]);
+					var newDate = pointtime.toDateString();
+					bodylabels.push(newDate);
 					weight.push(parseFloat(value[2]));
+					bodyComposition.push(value);
 				}
 				else
 				{
-					heartlabels.push(value[1]);
+					var pointtime = new Date(value[1]);
+					var newDate = pointtime.toDateString();
+					heartlabels.push(newDate);
 					heartRate.push(parseInt(value[2]));
 				}
 			}
@@ -76,6 +79,12 @@ function parseArray(info)
 			}
 		}
 	);
+	
+	bodylabels.reverse();
+	weight.reverse();
+	bodyComposition.reverse();
+	heartlabels.reverse();
+	heartRate.reverse();
 	
 	var bodyctx = document.getElementById('body').getContext('2d');
 	var heartctx = document.getElementById('heart').getContext('2d');
