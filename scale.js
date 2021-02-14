@@ -6,7 +6,6 @@ let keys;
 let heartRate = [];
 let bodyComposition = [];
 let weight = [];
-
 var bodylabels = [];
 var heartlabels = [];
 var rollingAverageData = [];
