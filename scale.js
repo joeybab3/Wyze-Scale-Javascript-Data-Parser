@@ -9,6 +9,10 @@ let weight = [];
 
 var bodylabels = [];
 var heartlabels = [];
+var rollingAverageData = [];
+var rollingAverage = [];
+var rollingAverageHeartData = [];
+var rollingAverageHeart = [];
 
 var X = XLSX;
 document.getElementById('input').addEventListener("change", (event) => {
@@ -40,6 +44,8 @@ document.getElementById('button').addEventListener("click", () =>
         }
     }
 });
+
+let average = (array) => array.reduce((a, b) => a + b) / array.length;
 
 function parseArray(info)
 {
@@ -85,6 +91,28 @@ function parseArray(info)
 	bodyComposition.reverse();
 	heartlabels.reverse();
 	heartRate.reverse();
+	rollingAverageData.reverse();
+	rollingAverage.reverse();
+	
+	$.each(weight, function(key, value)
+    {
+		if(rollingAverageData.length > 13)
+		{
+			rollingAverageData.shift();
+		}
+		rollingAverageData.push(parseFloat(value));
+		rollingAverage.push(average(rollingAverageData).toFixed(2));
+	});
+	
+	$.each(heartRate, function(key, value)
+    {
+		if(rollingAverageHeartData.length > 13)
+		{
+			rollingAverageHeartData.shift();
+		}
+		rollingAverageHeartData.push(parseFloat(value));
+		rollingAverageHeart.push(average(rollingAverageHeartData).toFixed(2));
+	});
 	
 	var bodyctx = document.getElementById('body').getContext('2d');
 	var heartctx = document.getElementById('heart').getContext('2d');
@@ -97,6 +125,13 @@ function parseArray(info)
 				label: "Weight",
 				data: weight,
 				backgroundColor: "rgba(150,150,150,0.4)"
+			},
+			{
+				label: '2wk Average',
+				data: rollingAverage,
+				type: 'line',
+				order: 2,
+				borderColor: "orange",
 			}]
 			
 		},
@@ -119,6 +154,13 @@ function parseArray(info)
 				label: "Heart Rate",
 				data: heartRate,
 				backgroundColor: "rgba(150,20,20,0.4)"
+			},
+			{
+				label: '2wk Average',
+				data: rollingAverageHeart,
+				type: 'line',
+				order: 2,
+				borderColor: "orange",
 			}]
 			
 		},
